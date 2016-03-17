@@ -1,21 +1,19 @@
 'use stirct';
-import fetch from 'node-fetch';
-import crypto from 'crypto';
-const ACCESS_KEY = "OxkUCE2MPXBIDY2LlUOH8IzcYBxyiy1DZc53kJan";
-const SECRET_KEY = "7sKHlCddau4kLtLO0qfV8d14ZF5C0PxqXIzARqcC";
-const HOST = "https://yunbi.com";
+//import fetch from 'node-fetch';
+import CryptoJS from 'crypto-js';
+import {ACCESS_KEY,SECRET_KEY,HOST} from '../app/constant';
 
-
-class YunBi {
+export class YunBi {
     constructor(accessKey, secretKey, host) {
         this.accessKey = accessKey;
         this.secretKey = secretKey;
         this.host = host;
+        this.tonce = "";
     }
 
-
     generateSignature(payload) {
-        return crypto.createHmac('SHA256', this.secretKey).update(payload).digest('hex')
+        return CryptoJS.HmacSHA256(payload,this.secretKey);
+
     }
 
     generatePayload(method, apiUri) {
@@ -24,19 +22,25 @@ class YunBi {
     }
 
     querySen(signature) {
-        let tonce = new Date().getTime();
-        let apiWithoutSign = `access_key=${this.accessKey}&tonce=${tonce}`;
-        let apiWithSign = `?access_key=${this.accessKey}&tonce=${tonce}&signature=${signature}`;
+        this.tonce = !signature ? new Date().getTime() : this.tonce;
+        let apiWithoutSign = `access_key=${this.accessKey}&tonce=${this.tonce}`;
+        let apiWithSign = `?access_key=${this.accessKey}&tonce=${this.tonce}&signature=${signature}`;
         return !signature ? apiWithoutSign : apiWithSign;
     }
 
 
-    getMarkets() {
+    getMemeber() {
         //TODO:
+
+    }
+
+    getMarkets(callback) {
+        //TODO
         let method = "GET";
         let apiUri = '/api/v2/markets';
         let payload = this.generatePayload(method, apiUri);
         let signature = this.generateSignature(payload);
+        console.log(signature);
         let api = this.host + apiUri + this.querySen(signature);
 
         fetch(api)
@@ -44,16 +48,12 @@ class YunBi {
                 return res.json();
             }).then((json)=> {
                 console.info(json);
+                callback(json);
             }
         );
     }
-
-
 }
 
-
-let yunbi = new YunBi(ACCESS_KEY, SECRET_KEY, HOST);
-yunbi.getMarkets();
 
 
 

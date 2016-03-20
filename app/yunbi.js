@@ -34,7 +34,7 @@ export class YunBi {
 
     }
 
-    getMarkets(callback) {
+    getMarkets() {
         //TODO
         let method = "GET";
         let apiUri = '/api/v2/markets';
@@ -43,12 +43,11 @@ export class YunBi {
         console.log(signature);
         let api = this.host + apiUri + this.querySen(signature);
 
-        fetch(api)
+        return fetch(api)
             .then((res)=> {
                 return res.json();
             }).then((json)=> {
-                console.info(json);
-                callback(json);
+                return json;
             }
         );
     }

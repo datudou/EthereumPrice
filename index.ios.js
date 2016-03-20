@@ -9,48 +9,87 @@ import React, {
     Component,
     StyleSheet,
     Text,
-    View
+    View,
+    ListView
 } from 'react-native';
+import {YunBi} from "./app/yunbi";
 
-import {YunBi} from './app/yunbi';
-import {ACCESS_KEY,SECRET_KEY,HOST} from './app/constant';
+import {
+    ACCESS_KEY,
+    SECRET_KEY,
+    HOST} from "./app/constant";
 
 class EthereumPrice extends Component {
     constructor(props) {
         super(props);
-        this.handleData = this.handleData.bind(this);
         this.state = {
-            marketsList: ""
+            dataSource: new ListView.DataSource({
+                rowHasChanged: (row1, row2)=> row1 !== row2
+            }),
+            loaded: false
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         let yunbi = new YunBi(ACCESS_KEY, SECRET_KEY, HOST);
-        yunbi.getMarkets(this.handleData);
+        yunbi.getMarkets()
+            .then((response)=> {
+                console.log(response);
+                this.setState({
+                    dataSource: this.state.dataSource.cloneWithRows(response),
+                    loaded: true
+                });
+            })
+            .done();
     }
 
-    handleData(json) {
-        console.log(json[0]);
-        this.setState({
-            markets: json[0].id
-        });
+
+    renderLoadingView() {
+        return (
+            <View style={styles.container}>
+                <Text>
+                    Loading data.....
+                </Text>
+            </View>
+        );
+    }
+
+    renderCoin(coin) {
+        return (
+            <View style={styles.container}>
+                <View style={styles.rightContainer}>
+                    <Text style={styles.title}>{coin.id}</Text>
+                    <Text style={styles.year}>{coin.name}</Text>
+                </View>
+            </View>
+        );
     }
 
 
     render() {
+        if (!this.state.loaded) {
+            return this.renderLoadingView();
+        }
+
         return (
-            <View style={styles.container}>
-                <Text style={styles.welcome}>
-                    {this.state.markets}
-                </Text>
-                <Text style={styles.instructions}>
-                    To get started, edit index.ios.js
-                </Text>
-                <Text style={styles.instructions}>
-                    Press Cmd+R to reload,{'\n'}
-                    Cmd+D or shake for dev menu
-                </Text>
-            </View>
+            <ListView
+                dataSource={this.state.dataSource}
+                renderRow={this.renderCoin}>
+                style={styles.listView}
+            </ListView>
+
+            //<View style={styles.container}>
+            //    <Text style={styles.welcome}>
+            //        EtherPrice
+            //    </Text>
+            //    <Text style={styles.instructions}>
+            //        To get started, edit index.ios.js
+            //    </Text>
+            //    <Text style={styles.instructions}>
+            //        Press Cmd+R to reload,{'\n'}
+            //        Cmd+D or shake for dev menus
+            //    </Text>
+            //</View>
         );
     }
 }
@@ -58,9 +97,17 @@ class EthereumPrice extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
+    },
+    listView: {
+        paddingTop: 20,
+        backgroundColor: '#F5FCFF',
+    },
+    rightContainer: {
+        flex: 1,
     },
     welcome: {
         fontSize: 20,
@@ -71,7 +118,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#333333',
         marginBottom: 5,
-    },
+    }
 });
 
 AppRegistry.registerComponent('EthereumPrice', () => EthereumPrice);

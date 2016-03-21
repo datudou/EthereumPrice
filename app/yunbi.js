@@ -42,7 +42,9 @@ export class YunBi {
                 return res.json();
             }).then((json)=> {
                 return json;
-            })
+            }).catch((error) => {
+                console.warn(error);
+            });
 
 
     }
@@ -61,6 +63,8 @@ export class YunBi {
                 return res.json();
             }).then((json)=> {
                 return json;
+            }).catch((error) => {
+                console.warn(error);
             });
     }
 }

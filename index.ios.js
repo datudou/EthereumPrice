@@ -59,7 +59,7 @@ class EthereumPrice extends Component {
             <View style={styles.container}>
                 <View style={styles.rightContainer}>
                     <Text style={styles.title}>{coin.id}</Text>
-                    <Text style={styles.year}>{coin.name}</Text>
+                    <Text style={styles.name}>{coin.name}</Text>
                 </View>
             </View>
         );
@@ -74,22 +74,9 @@ class EthereumPrice extends Component {
         return (
             <ListView
                 dataSource={this.state.dataSource}
-                renderRow={this.renderCoin}>
-                style={styles.listView}
+                renderRow={this.renderCoin}
+                style={styles.listView}>
             </ListView>
-
-            //<View style={styles.container}>
-            //    <Text style={styles.welcome}>
-            //        EtherPrice
-            //    </Text>
-            //    <Text style={styles.instructions}>
-            //        To get started, edit index.ios.js
-            //    </Text>
-            //    <Text style={styles.instructions}>
-            //        Press Cmd+R to reload,{'\n'}
-            //        Cmd+D or shake for dev menus
-            //    </Text>
-            //</View>
         );
     }
 }
@@ -102,17 +89,20 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },
+    title: {
+        fontSize: 20,
+        marginBottom: 8,
+        textAlign: 'center',
+    },
     listView: {
-        paddingTop: 20,
-        backgroundColor: '#F5FCFF',
+        paddingTop: 100,
+        backgroundColor: '#613030',
     },
     rightContainer: {
         flex: 1,
     },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
+    name: {
+        textAlign: 'left',
     },
     instructions: {
         textAlign: 'center',

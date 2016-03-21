@@ -12,7 +12,7 @@ export class YunBi {
     }
 
     generateSignature(payload) {
-        return CryptoJS.HmacSHA256(payload,this.secretKey);
+        return CryptoJS.HmacSHA256(payload, this.secretKey);
 
     }
 
@@ -29,8 +29,21 @@ export class YunBi {
     }
 
 
-    getMemeber() {
+    getTickers() {
         //TODO:
+        let method = "GET";
+        let apiUri = '/api/v2/tickers';
+        let payload = this.generatePayload(method, apiUri);
+        let signature = this.generateSignature(payload);
+        let api = this.host + apiUri + this.querySen(signature);
+
+        return fetch(api)
+            .then((res)=> {
+                return res.json();
+            }).then((json)=> {
+                return json;
+            })
+
 
     }
 
@@ -48,8 +61,7 @@ export class YunBi {
                 return res.json();
             }).then((json)=> {
                 return json;
-            }
-        );
+            });
     }
 }
 

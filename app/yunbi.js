@@ -1,5 +1,4 @@
 'use stirct';
-//import fetch from 'node-fetch';
 import CryptoJS from 'crypto-js';
 import {ACCESS_KEY,SECRET_KEY,HOST} from '../app/constant';
 
@@ -13,7 +12,6 @@ export class YunBi {
 
     generateSignature(payload) {
         return CryptoJS.HmacSHA256(payload, this.secretKey);
-
     }
 
     generatePayload(method, apiUri) {
@@ -29,6 +27,22 @@ export class YunBi {
     }
 
 
+    getTickersByMarket(marketName){
+        let method = "GET";
+        let apiUri = `/api/v2/tickers/${marketName}.json`;
+        let payload = this.generatePayload(method, apiUri);
+        let signature = this.generateSignature(payload);
+        let api = this.host + apiUri + this.querySen(signature)
+        return fetch(api)
+            .then((res)=>{
+                return res.json();
+            }).then((json)=>{
+                return json;
+            }).catch((error)=>{
+                console.warn(error);
+            })
+    }
+
     getTickers() {
         //TODO:
         let method = "GET";
@@ -36,7 +50,6 @@ export class YunBi {
         let payload = this.generatePayload(method, apiUri);
         let signature = this.generateSignature(payload);
         let api = this.host + apiUri + this.querySen(signature);
-
         return fetch(api)
             .then((res)=> {
                 return res.json();
@@ -45,8 +58,6 @@ export class YunBi {
             }).catch((error) => {
                 console.warn(error);
             });
-
-
     }
 
     getMarkets() {
@@ -68,10 +79,3 @@ export class YunBi {
             });
     }
 }
-
-
-
-
-
-
-

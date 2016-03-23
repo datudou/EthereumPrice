@@ -12,16 +12,19 @@ import React, {
     Component
 } from 'react-native';
 
+
 import {
     ACCESS_KEY,
     SECRET_KEY,
     HOST} from "./constant";
 
 import {YunBi} from './yunbi';
+import {CardView} from './CardView';
 
 export class CustomListView extends Component {
     constructor(props){
         super(props);
+        console.log(this.props.navigator);
         this.state = {
             dataSource: new ListView.DataSource({
                 rowHasChanged: (row1, row2)=> row1 !== row2
@@ -31,6 +34,11 @@ export class CustomListView extends Component {
     }
 
     onPressButton(rowData){
+        this.props.navigator.push({
+            title:rowData.name,
+            component: CardView,
+            passProps: {rowData}
+        });
         console.log(rowData);
     }
 
@@ -59,19 +67,13 @@ export class CustomListView extends Component {
     renderCoin(coin) {
         return (
             <TouchableHighlight
-                style={styles.container}
+                style={styles.row}
                 underlayColor='#c8c7cc'
                 onPress={()=>{this.onPressButton(coin)}}>
                 <View style={styles.rightContainer}>
                     <Text style={styles.name}>{coin.name}</Text>
                 </View>
             </TouchableHighlight>
-            // <View style={styles.container}>
-            //     <View style={styles.rightContainer}>
-            //         <Text style={styles.title}>{coin.id}</Text>
-            //         <Text style={styles.name}>{coin.name}</Text>
-            //     </View>
-            // </View>
         )
     }
 
@@ -83,6 +85,7 @@ export class CustomListView extends Component {
             <ListView
                 dataSource={this.state.dataSource}
                 renderRow={this.renderCoin.bind(this)}
+                renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />}
                 style={styles.listView}>
             </ListView>
         );
@@ -92,9 +95,14 @@ export class CustomListView extends Component {
 
 
 const styles = StyleSheet.create({
+    row:{
+        flexDirection: 'row',
+        justifyContent: 'center',
+        padding: 10,
+        backgroundColor: '#F6F6F6',
+    },
     container: {
         flex: 1,
-        flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
@@ -110,8 +118,12 @@ const styles = StyleSheet.create({
     name: {
         textAlign: 'left',
     },
+    separator: {
+        height: 1,
+        backgroundColor: '#CCCCCC',
+    },
     listView: {
-        paddingTop: 100,
-        backgroundColor: '#613030',
+        paddingTop: 60,
+        backgroundColor: '#F5FCFF',
     },
 });

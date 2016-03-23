@@ -8,6 +8,7 @@ import React, {
     Text,
     View,
     ListView,
+    TouchableHighlight,
     Component
 } from 'react-native';
 
@@ -27,6 +28,10 @@ export class CustomListView extends Component {
             }),
             loaded:false
         }
+    }
+
+    onPressButton(rowData){
+        console.log(rowData);
     }
 
     componentDidMount() {
@@ -53,12 +58,20 @@ export class CustomListView extends Component {
 
     renderCoin(coin) {
         return (
-            <View style={styles.container}>
+            <TouchableHighlight
+                style={styles.container}
+                underlayColor='#c8c7cc'
+                onPress={()=>{this.onPressButton(coin)}}>
                 <View style={styles.rightContainer}>
-                    <Text style={styles.title}>{coin.id}</Text>
                     <Text style={styles.name}>{coin.name}</Text>
                 </View>
-            </View>
+            </TouchableHighlight>
+            // <View style={styles.container}>
+            //     <View style={styles.rightContainer}>
+            //         <Text style={styles.title}>{coin.id}</Text>
+            //         <Text style={styles.name}>{coin.name}</Text>
+            //     </View>
+            // </View>
         )
     }
 
@@ -69,7 +82,7 @@ export class CustomListView extends Component {
         return (
             <ListView
                 dataSource={this.state.dataSource}
-                renderRow={this.renderCoin}
+                renderRow={this.renderCoin.bind(this)}
                 style={styles.listView}>
             </ListView>
         );

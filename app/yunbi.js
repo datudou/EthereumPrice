@@ -28,11 +28,8 @@ export class YunBi {
 
 
     getTickersByMarket(marketName){
-        let method = "GET";
         let apiUri = `/api/v2/tickers/${marketName}.json`;
-        let payload = this.generatePayload(method, apiUri);
-        let signature = this.generateSignature(payload);
-        let api = this.host + apiUri + this.querySen(signature)
+        let api = this.host + apiUri;
         return fetch(api)
             .then((res)=>{
                 return res.json();
@@ -44,12 +41,8 @@ export class YunBi {
     }
 
     getTickers() {
-        //TODO:
-        let method = "GET";
         let apiUri = '/api/v2/tickers';
-        let payload = this.generatePayload(method, apiUri);
-        let signature = this.generateSignature(payload);
-        let api = this.host + apiUri + this.querySen(signature);
+        let api = this.host + apiUri;
         return fetch(api)
             .then((res)=> {
                 return res.json();
@@ -62,12 +55,8 @@ export class YunBi {
 
     getMarkets() {
         //TODO
-        let method = "GET";
         let apiUri = '/api/v2/markets';
-        let payload = this.generatePayload(method, apiUri);
-        let signature = this.generateSignature(payload);
-        console.log(signature);
-        let api = this.host + apiUri + this.querySen(signature);
+        let api = this.host + apiUri ;
 
         return fetch(api)
             .then((res)=> {

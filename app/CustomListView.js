@@ -34,12 +34,14 @@ export class CustomListView extends Component {
     }
 
     onPressButton(rowData){
-        this.props.navigator.push({
-            title:rowData.name,
-            component: CardView,
-            passProps: {rowData}
-        });
-        console.log(rowData);
+        if (this.props.navigator){
+            this.props.navigator.push({
+                title:rowData.name,
+                component: CardView,
+                passProps: {rowData}
+            });
+            console.log(rowData);
+        }
     }
 
     componentDidMount() {

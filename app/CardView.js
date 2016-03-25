@@ -7,15 +7,23 @@ import React,{
     View,
     StyleSheet,
     Text,
+    Image,
     Component
 } from 'react-native';
 
 import {YunBi} from './yunbi';
+
 import {ACCESS_KEY,
         SECRET_KEY,
         HOST} from './constant';
 
+import TimerMixin from 'react-timer-mixin';
+import reactMixin from 'react-mixin';
+
+
+
 export class CardView extends Component {
+
     constructor(props){
         super(props);
         this.state = {
@@ -27,8 +35,19 @@ export class CardView extends Component {
 
 
     componentDidMount(){
+        this.startTimer();
+    }
+
+    componentWillUnmount(){
+        if(this.timer){
+            clearInterval(this.timer);
+        }
+    }
+
+    fetchData(){
         let marketId = this.props.rowData.id;
         let yunbi = new YunBi(ACCESS_KEY, SECRET_KEY, HOST);
+        console.log("---->");
         yunbi.getTickersByMarket(marketId)
             .then((response)=> {
                 this.setState({
@@ -36,6 +55,10 @@ export class CardView extends Component {
                     coinPrice:response.ticker.last,
                 })
             });
+    }
+
+    startTimer(){
+        this.timer = setInterval(this.fetchData.bind(this),1000);
     }
 
     render(){
@@ -49,6 +72,7 @@ export class CardView extends Component {
         )
     }
 }
+
 
 
 const styles = StyleSheet.create({

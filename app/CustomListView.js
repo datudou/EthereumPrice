@@ -24,7 +24,6 @@ import {CardView} from './CardView';
 export class CustomListView extends Component {
     constructor(props){
         super(props);
-        console.log(this.props.navigator);
         this.state = {
             dataSource: new ListView.DataSource({
                 rowHasChanged: (row1, row2)=> row1 !== row2
@@ -100,7 +99,7 @@ const styles = StyleSheet.create({
     row:{
         flexDirection: 'row',
         justifyContent: 'center',
-        padding: 10,
+        padding: 30,
         backgroundColor: '#F6F6F6',
     },
     container: {

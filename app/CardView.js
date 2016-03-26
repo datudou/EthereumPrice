@@ -11,15 +11,13 @@ import React,{
     Component
 } from 'react-native';
 
+import LinearGradient from 'react-native-linear-gradient';
+
 import {YunBi} from './yunbi';
 
 import {ACCESS_KEY,
         SECRET_KEY,
         HOST} from './constant';
-
-import TimerMixin from 'react-timer-mixin';
-import reactMixin from 'react-mixin';
-
 
 
 export class CardView extends Component {
@@ -27,14 +25,20 @@ export class CardView extends Component {
     constructor(props){
         super(props);
         this.state = {
-            coinName:"",
-            coinPrice: "",
-
+            ticker:{
+                buy:"",
+                sell:"",
+                low:"",
+                high:"",
+                last:"",
+                vol:""
+            },
+            time:""
         }
     }
 
-
     componentDidMount(){
+        this.coinName = this.props.rowData.name,
         this.startTimer();
     }
 
@@ -47,12 +51,10 @@ export class CardView extends Component {
     fetchData(){
         let marketId = this.props.rowData.id;
         let yunbi = new YunBi(ACCESS_KEY, SECRET_KEY, HOST);
-        console.log("---->");
         yunbi.getTickersByMarket(marketId)
             .then((response)=> {
                 this.setState({
-                    coinName:this.props.rowData.name,
-                    coinPrice:response.ticker.last,
+                    ticker:response.ticker
                 })
             });
     }
@@ -63,12 +65,17 @@ export class CardView extends Component {
 
     render(){
         return (
-            <View style={styles.container}>
-                <Text>
-                    {this.state.coinName}
-                    {this.state.coinPrice}
+            <LinearGradient style={styles.container}
+                colors={['#BDCAFA', '#DDD9FA', '#F5EDFA']}>
+                <Text style={styles.coinName}>
+                    {this.coinName}
                 </Text>
-            </View>
+                <Text>
+                    {this.state.ticker.last}
+                    {this.state.ticker.low}
+                    {this.state.ticker.high}
+                </Text>
+            </LinearGradient>
         )
     }
 }
@@ -80,5 +87,8 @@ const styles = StyleSheet.create({
         flex:1,
         alignItems:'center',
         justifyContent: 'center',
-    }
+    },
+    coinName: {
+        fontSize: 20
+    },
 });

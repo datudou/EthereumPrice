@@ -15,11 +15,6 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import {YunBi} from './yunbi';
 
-import {ACCESS_KEY,
-        SECRET_KEY,
-        HOST} from './constant';
-
-
 export class CardView extends Component {
 
     constructor(props){
@@ -50,8 +45,7 @@ export class CardView extends Component {
 
     fetchData(){
         let marketId = this.props.rowData.id;
-        let yunbi = new YunBi(ACCESS_KEY, SECRET_KEY, HOST);
-        yunbi.getTickersByMarket(marketId)
+        YunBi.getTickersByMarket(marketId)
             .then((response)=> {
                 this.setState({
                     ticker:response.ticker

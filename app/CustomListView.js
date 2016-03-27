@@ -12,12 +12,6 @@ import React, {
     Component
 } from 'react-native';
 
-
-import {
-    ACCESS_KEY,
-    SECRET_KEY,
-    HOST} from "./constant";
-
 import {YunBi} from './yunbi';
 import {CardView} from './CardView';
 
@@ -44,8 +38,7 @@ export class CustomListView extends Component {
     }
 
     componentDidMount() {
-        let yunbi = new YunBi(ACCESS_KEY, SECRET_KEY, HOST);
-        yunbi.getMarkets()
+        YunBi.getMarkets()
             .then((response)=> {
                 console.log(response);
                 this.setState({

@@ -2,11 +2,9 @@
 import CryptoJS from 'crypto-js';
 import {ACCESS_KEY,SECRET_KEY,HOST} from '../app/constant';
 
+
 export class YunBi {
-    constructor(accessKey, secretKey, host) {
-        this.accessKey = accessKey;
-        this.secretKey = secretKey;
-        this.host = host;
+    constructor() {
         this.tonce = "";
     }
 
@@ -27,22 +25,22 @@ export class YunBi {
     }
 
 
-    getTickersByMarket(marketName){
+    static getTickersByMarket(marketName) {
         let apiUri = `/api/v2/tickers/${marketName}.json`;
-        let api = this.host + apiUri;
+        let api = HOST + apiUri;
         return fetch(api)
-            .then((res)=>{
+            .then((res)=> {
                 return res.json();
-            }).then((json)=>{
+            }).then((json)=> {
                 return json;
-            }).catch((error)=>{
+            }).catch((error)=> {
                 console.warn(error);
             })
     }
 
-    getTickers() {
+    static getTickers() {
         let apiUri = '/api/v2/tickers';
-        let api = this.host + apiUri;
+        let api = HOST + apiUri;
         return fetch(api)
             .then((res)=> {
                 return res.json();
@@ -53,10 +51,10 @@ export class YunBi {
             });
     }
 
-    getMarkets() {
+    static getMarkets() {
         //TODO
         let apiUri = '/api/v2/markets';
-        let api = this.host + apiUri ;
+        let api = HOST + apiUri;
 
         return fetch(api)
             .then((res)=> {

@@ -31,7 +31,8 @@ export class CustomListView extends Component {
             this.props.navigator.push({
                 title:rowData.name,
                 component: CardView,
-                passProps: {rowData}
+                passProps: {rowData},
+                navigationBarHidden:true
             });
             console.log(rowData);
         }

@@ -17,50 +17,51 @@ import {YunBi} from './yunbi';
 
 export class CardView extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            ticker:{
-                buy:"",
-                sell:"",
-                low:"",
-                high:"",
-                last:"",
-                vol:""
+            ticker: {
+                buy: "",
+                sell: "",
+                low: "",
+                high: "",
+                last: "",
+                vol: ""
             },
-            time:""
+            time: ""
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.coinName = this.props.rowData.name,
-        this.startTimer();
+            this.startTimer();
     }
 
-    componentWillUnmount(){
-        if(this.timer){
+    componentWillUnmount() {
+        if (this.timer) {
             clearInterval(this.timer);
         }
     }
 
-    fetchData(){
+    fetchData() {
         let marketId = this.props.rowData.id;
         YunBi.getTickersByMarket(marketId)
             .then((response)=> {
                 this.setState({
-                    ticker:response.ticker
+                    ticker: response.ticker
                 })
             });
     }
 
-    startTimer(){
-        this.timer = setInterval(this.fetchData.bind(this),1000);
+    startTimer() {
+        this.timer = setInterval(this.fetchData.bind(this), 1000);
     }
 
-    render(){
+    render() {
+
         return (
             <LinearGradient style={styles.container}
-                colors={['#BDCAFA', '#DDD9FA', '#F5EDFA']}>
+                            colors={['#BDCAFA', '#DDD9FA', '#F5EDFA']}>
                 <Text style={styles.coinName}>
                     {this.coinName}
                 </Text>
@@ -75,11 +76,11 @@ export class CardView extends Component {
 }
 
 
-
 const styles = StyleSheet.create({
     container: {
-        flex:1,
-        alignItems:'center',
+        flex: 1,
+        alignItems: 'center',
+        backgroundColor:"transparent",
         justifyContent: 'center',
     },
     coinName: {

@@ -13,7 +13,7 @@ import React,{
 
 import LinearGradient from 'react-native-linear-gradient';
 
-import {YunBi} from './yunbi';
+import {YunBi} from '../network/YunBi';
 
 export class CardView extends Component {
 

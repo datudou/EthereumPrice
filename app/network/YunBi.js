@@ -1,6 +1,6 @@
 'use stirct';
 import CryptoJS from 'crypto-js';
-import {ACCESS_KEY,SECRET_KEY,HOST} from '../app/constant';
+import {ACCESS_KEY,SECRET_KEY,HOST} from '../Constant';
 
 
 export class YunBi {

@@ -12,7 +12,7 @@ import React, {
     View,
 } from 'react-native';
 
-import {CustomListView} from './app/CustomListView';
+import {CustomListView} from './app/component/CustomListView';
 
 class EthereumPrice extends Component {
     constructor(props) {

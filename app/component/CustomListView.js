@@ -12,7 +12,7 @@ import React, {
     Component
 } from 'react-native';
 
-import {YunBi} from './yunbi';
+import {YunBi} from '../network/YunBi';
 import {CardView} from './CardView';
 
 export class CustomListView extends Component {
@@ -32,9 +32,7 @@ export class CustomListView extends Component {
                 title:rowData.name,
                 component: CardView,
                 passProps: {rowData},
-                navigationBarHidden:true
             });
-            console.log(rowData);
         }
     }
 

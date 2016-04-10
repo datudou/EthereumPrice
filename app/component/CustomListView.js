@@ -13,7 +13,8 @@ import React, {
 } from 'react-native';
 
 import {YunBi} from '../network/YunBi';
-import {CardView} from './CardView';
+import CardView from './CardView';
+import {LoadingView} from './LoadingView';
 
 export class CustomListView extends Component {
     constructor(props){
@@ -72,7 +73,8 @@ export class CustomListView extends Component {
 
     render() {
         if (!this.state.loaded) {
-            return this.renderLoadingView();
+          return (<LoadingView>
+                  </LoadingView>)
         }
         return (
             <ListView

@@ -32,6 +32,7 @@ class CardView extends Component {
       time: '',
       isLoaded: false
     }
+    this.isUnmounted = false
   }
 
   componentDidMount () {
@@ -40,6 +41,7 @@ class CardView extends Component {
   }
 
   componentWillUnmount () {
+    this.isUnmounted = true
     if (this.timer) {
       clearInterval(this.timer)
     }
@@ -48,12 +50,14 @@ class CardView extends Component {
   fetchData () {
     let marketId = this.props.rowData.id
     YunBi.getTickersByMarket(marketId)
-      .then((response) => {
-        this.setState({
-          ticker: response.ticker,
-          isLoaded: true
-        })
-      })
+     .then((response) => {
+       if (!this.isUnmounted) {
+         this.setState({
+           ticker: response.ticker,
+           isLoaded: true
+         })
+       }
+     })
   }
 
   startTimer () {

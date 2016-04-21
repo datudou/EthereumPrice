@@ -1,68 +1,77 @@
-'use stirct';
-import CryptoJS from 'crypto-js';
-import {ACCESS_KEY,SECRET_KEY,HOST} from '../constant';
-
+'use stirct'
+import CryptoJS from 'crypto-js'
+import {
+  HOST
+} from '../constant'
 
 export class YunBi {
-    constructor() {
-        this.tonce = "";
-    }
 
-    generateSignature(payload) {
-        return CryptoJS.HmacSHA256(payload, this.secretKey);
-    }
+  constructor () {
+    this.tonce = ''
+  }
 
-    generatePayload(method, apiUri) {
-        let query = this.querySen();
-        return `${method}|${apiUri}|${query}`;
-    }
+  generateSignature (payload) {
+    return CryptoJS.HmacSHA256(payload, this.secretKey)
+  }
 
-    querySen(signature) {
-        this.tonce = !signature ? new Date().getTime() : this.tonce;
-        let apiWithoutSign = `access_key=${this.accessKey}&tonce=${this.tonce}`;
-        let apiWithSign = `?access_key=${this.accessKey}&tonce=${this.tonce}&signature=${signature}`;
-        return !signature ? apiWithoutSign : apiWithSign;
-    }
+  generatePayload (method, apiUri) {
+    let query = this.querySen()
+    return `${method}|${apiUri}|${query}`
+  }
 
+  querySen (signature) {
+    this.tonce = !signature ? new Date()
+      .getTime() : this.tonce
+    let apiWithoutSign = `access_key=${this.accessKey}&tonce=${this.tonce}`
+    let apiWithSign =
+      `?access_key=${this.accessKey}&tonce=${this.tonce}&signature=${signature}`
+    return !signature ? apiWithoutSign : apiWithSign
+  }
 
-    static getTickersByMarket(marketName) {
-        let apiUri = `/api/v2/tickers/${marketName}.json`;
-        let api = HOST + apiUri;
-        return fetch(api)
-            .then((res)=> {
-                return res.json();
-            }).then((json)=> {
-                return json;
-            }).catch((error)=> {
-                console.warn(error);
-            })
-    }
+  static getTickersByMarket (marketName) {
+    let apiUri = `/api/v2/tickers/${marketName}.json`
+    let api = HOST + apiUri
+    return fetch(api)
+      .then((res) => {
+        return res.json()
+      })
+      .then((json) => {
+        return json
+      })
+      .catch((error) => {
+        console.warn(error)
+      })
+  }
 
-    static getTickers() {
-        let apiUri = '/api/v2/tickers';
-        let api = HOST + apiUri;
-        return fetch(api)
-            .then((res)=> {
-                return res.json();
-            }).then((json)=> {
-                return json;
-            }).catch((error) => {
-                console.warn(error);
-            });
-    }
+  static getTickers () {
+    let apiUri = '/api/v2/tickers'
+    let api = HOST + apiUri
+    return fetch(api)
+      .then((res) => {
+        return res.json()
+      })
+      .then((json) => {
+        return json
+      })
+      .catch((error) => {
+        console.warn(error)
+      })
+  }
 
-    static getMarkets() {
-        //TODO
-        let apiUri = '/api/v2/markets';
-        let api = HOST + apiUri;
+  static getMarkets () {
+    // TODO
+    let apiUri = '/api/v2/markets'
+    let api = HOST + apiUri
 
-        return fetch(api)
-            .then((res)=> {
-                return res.json();
-            }).then((json)=> {
-                return json;
-            }).catch((error) => {
-                console.warn(error);
-            });
-    }
+    return fetch(api)
+      .then((res) => {
+        return res.json()
+      })
+      .then((json) => {
+        return json
+      })
+      .catch((error) => {
+        console.warn(error)
+      })
+  }
 }

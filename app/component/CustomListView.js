@@ -49,7 +49,7 @@ export class CustomListView extends Component {
   }
 
   componentDidMount () {
-    YunBi.getMarkts()
+    YunBi.getMarkets()
       .then((response) => {
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(response),
@@ -82,11 +82,10 @@ export class CustomListView extends Component {
   }
 
   render () {
-    const menu = <Menu navigator={navigator}>
     if (!this.state.loaded) {
-      return (<LoadingView>
-                </LoadingView>)
+      return (<LoadingView/>)
     }
+
     return (
       <ListView
               dataSource={this.state.dataSource}
@@ -94,7 +93,8 @@ export class CustomListView extends Component {
               renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />}
               style = {styles.listView} >
       </ListView>
-  ) }
+    )
+  }
 }
 
 const styles = StyleSheet.create({

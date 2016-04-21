@@ -4,10 +4,10 @@ import React, {
     Text,
     View,
     Component
-} from 'react-native';
+} from 'react-native'
 
 export class LoadingView extends Component{
-  render(){
+  render () {
     return (
       <View style={styles.container}>
         <Text>
@@ -18,7 +18,6 @@ export class LoadingView extends Component{
   }
 
 }
-
 
 const styles = StyleSheet.create({
     container: {

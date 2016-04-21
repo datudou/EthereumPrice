@@ -11,10 +11,10 @@ import LinearGradient from 'react-native-linear-gradient'
 import {
   YunBi
 } from '../network/YunBi'
+
 import {
   LoadingView
 } from './LoadingView.js'
-import safePromise from '../SafePromise'
 
 class CardView extends Component {
 
@@ -97,4 +97,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default safePromise(CardView)
+export default CardView

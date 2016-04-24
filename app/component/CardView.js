@@ -47,7 +47,7 @@ class CardView extends Component {
 
   fetchData () {
     let marketId = this.props.rowData.id
-    YunBi.getTickersByMarket(marketId)
+    new YunBi().getTickersByMarket(marketId)
       .then((response) => {
         this.setState({
           ticker: response.ticker,

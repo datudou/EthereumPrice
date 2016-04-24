@@ -16,6 +16,7 @@ import {
 } from '../network/YunBi'
 
 import CardView from './CardView'
+
 import {
   LoadingView
 } from './LoadingView'
@@ -23,6 +24,8 @@ import {
 import {
   Menu
 } from './Meun'
+
+import SideMenu from 'react-native-side-menu'
 
 export class CustomListView extends Component {
 
@@ -32,7 +35,9 @@ export class CustomListView extends Component {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2
       }),
-      loaded: false
+      loaded: false,
+      isMenuOpened: false,
+      selectItem: 'About'
     }
   }
 
@@ -48,9 +53,17 @@ export class CustomListView extends Component {
     }
   }
 
+  onMenuItemSelected (item) {
+    this.setState({
+      isOpen: false,
+      selectemItem: item
+    })
+  }
+
   componentDidMount () {
-    YunBi.getMarkets()
+    new YunBi().getMarkets()
       .then((response) => {
+        console.info(response)
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(response),
           loaded: true
@@ -81,18 +94,32 @@ export class CustomListView extends Component {
     )
   }
 
+  updateMenuState(isOpen){
+    this.setState({
+      isMenuOpened:isOpen
+    })
+  }
+
   render () {
+    const menu = <Menu onItemSelected={this.onMenuItemSelected}/>
     if (!this.state.loaded) {
       return (<LoadingView/>)
     }
 
     return (
-      <ListView
-              dataSource={this.state.dataSource}
-              renderRow={this.renderCoin.bind(this)}
-              renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />}
-              style = {styles.listView} >
-      </ListView>
+      <SideMenu
+        menu={menu}
+        isOpen={this.state.isMenuOpened}
+        onChange={(isOpen)=>this.updateMenuState(isOpen)}
+      >
+        <ListView
+          dataSource={this.state.dataSource}
+          renderRow={this.renderCoin.bind(this)}
+          renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />}
+          style = {styles.listView}
+         >
+        </ListView>
+      </SideMenu>
     )
   }
 }

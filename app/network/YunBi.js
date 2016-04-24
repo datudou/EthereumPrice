@@ -6,8 +6,12 @@ import {
 
 export class YunBi {
 
-  constructor () {
+  constructor (secertKey, accessKey) {
     this.tonce = ''
+    if (!secertKey && !accessKey) {
+      this.secertKey = secertKey
+      this.accessKey = accessKey
+    }
   }
 
   generateSignature (payload) {
@@ -28,10 +32,9 @@ export class YunBi {
     return !signature ? apiWithoutSign : apiWithSign
   }
 
-  static getTickersByMarket (marketName) {
-    let apiUri = `/api/v2/tickers/${marketName}.json`
-    let api = HOST + apiUri
-    return fetch(api)
+  publicApiFetch (api, params) {
+    const apiUrl = `${HOST}/api/v2/${api}`
+    return fetch(apiUrl)
       .then((res) => {
         return res.json()
       })
@@ -39,14 +42,18 @@ export class YunBi {
         return json
       })
       .catch((error) => {
-        console.warn(error)
+        console.error(error)
       })
   }
 
-  static getTickers () {
-    let apiUri = '/api/v2/tickers'
-    let api = HOST + apiUri
-    return fetch(api)
+  privateApiFetch (api, params, method) {
+    if (!this.secertKey || !this.accessKey) {
+      throw new Error('Access key and secret key is required')
+    }
+    const payload = this.generatePayload(method, `/api/v2/${api}`)
+    const signature = this.generateSignature(payload)
+    const apiUrl = `${HOST}/api/v2/${api}${this.querySen(signature)}`
+    return fetch(apiUrl)
       .then((res) => {
         return res.json()
       })
@@ -54,24 +61,26 @@ export class YunBi {
         return json
       })
       .catch((error) => {
-        console.warn(error)
+        throw error
       })
   }
 
-  static getMarkets () {
-    // TODO
-    let apiUri = '/api/v2/markets'
-    let api = HOST + apiUri
+  getMemberInfo () {}
 
-    return fetch(api)
-      .then((res) => {
-        return res.json()
-      })
-      .then((json) => {
-        return json
-      })
-      .catch((error) => {
-        console.warn(error)
-      })
+  buy () {}
+
+  sell () {}
+
+  getTickersByMarket (marketName) {
+    return this.publicApiFetch(`/tickers/${marketName}.json`)
+  }
+
+  getTickers () {
+    return this.publicApiFetch('/tickers')
+  }
+
+  @readonly
+  getMarkets () {
+    return this.publicApiFetch('/markets')
   }
 }

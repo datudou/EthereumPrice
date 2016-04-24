@@ -1,15 +1,22 @@
-"use strict";
-import {YunBi} from '../app/yunbi.js';
+"use strict"
+import {YunBi} from '../app/network/YunBi.js'
 import {
     ACCESS_KEY,
     SECRET_KEY,
-    HOST} from '../app/constant';
+    HOST} from '../app/constant'
 
 
-let yunbi = new YunBi(ACCESS_KEY, SECRET_KEY, HOST);
+let yunbi = new YunBi(ACCESS_KEY, SECRET_KEY, HOST)
 
 
-yunbi.getMarkets();
+yunbi.getMarkets()
+  .then((res) => {
+    console.log(res)
+  })
 
-//let genSig = CryptoJS.SHA256.decrypt()
+yunbi.getTickers()
+  .then((res) => {
+    console.log(res)
+  })
+//yunbi.getTickersByMarket()
 

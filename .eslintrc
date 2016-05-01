@@ -5,10 +5,13 @@
     "standard-react"
   ],
   "plugins" : [
-    "flow-vars"
+    "react",
+    "react-native"
   ],
   "env"     : {
-    "browser" : true
+    "browser" : true,
+    "es6":true,
+    "node":true
   },
   "globals" : {
     "Action"       : false,
@@ -18,10 +21,15 @@
     "__DEBUG_NEW_WINDOW__" : false,
     "__BASENAME__" : false
   },
+  "ecmaFeatures": {
+    "jsx": true,
+    "experimentalObjectRestSpread": true,
+    "modules": true
+  },
   "rules": {
     "semi" : [2, "never"],
     "max-len": [2, 120, 2],
-    "flow-vars/define-flow-type": 1,
-    "flow-vars/use-flow-type": 1
+    "react-native/no-unused-styles": 2,
+    "react-native/split-platform-components": 2
   }
 }

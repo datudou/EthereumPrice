@@ -4,7 +4,8 @@
 import React, {
   StyleSheet,
   Text,
-  Component
+  Component,
+  PropTypes
 } from 'react-native'
 
 import LinearGradient from 'react-native-linear-gradient'
@@ -17,6 +18,9 @@ import {
 } from './LoadingView.js'
 
 class CardView extends Component {
+  static propTypes = {
+    rowData: PropTypes.object.isRequired
+  };
 
   constructor (props) {
     super(props)
@@ -67,7 +71,7 @@ class CardView extends Component {
 
     return (
       <LinearGradient style={styles.container}
-                        colors={['#BDCAFA', '#DDD9FA', '#F5EDFA']}>
+        colors={['#BDCAFA', '#DDD9FA', '#F5EDFA']}>
         <Text style={styles.coinName}>
           {this.coinName}
         </Text>

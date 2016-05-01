@@ -79,7 +79,6 @@ export class YunBi {
     return this.publicApiFetch('/tickers')
   }
 
-  @readonly
   getMarkets () {
     return this.publicApiFetch('/markets')
   }

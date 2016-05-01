@@ -2,17 +2,17 @@
  * Sample React Native App
  * https://github.com/facebook/react-native
  */
-'use strict';
+'use strict'
 import React, {
   AppRegistry,
   Component,
   StyleSheet,
   Text,
   View
-} from 'react-native';
+} from 'react-native'
 
 class EthereumPrice extends Component {
-  render() {
+  render () {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
@@ -25,7 +25,7 @@ class EthereumPrice extends Component {
           Shake or press menu button for dev menu
         </Text>
       </View>
-    );
+    )
   }
 }
 
@@ -46,6 +46,6 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
-});
+})
 
-AppRegistry.registerComponent('EthereumPrice', () => EthereumPrice);
+AppRegistry.registerComponent('EthereumPrice', () => EthereumPrice)

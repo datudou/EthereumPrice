@@ -8,7 +8,8 @@ import React, {
   View,
   ListView,
   TouchableHighlight,
-  Component
+  Component,
+  PropTypes
 } from 'react-native'
 
 import {
@@ -28,6 +29,9 @@ import {
 import SideMenu from 'react-native-side-menu'
 
 export class CustomListView extends Component {
+  static propTypes = {
+    navigator: PropTypes.object.isRequired
+  };
 
   constructor (props) {
     super(props)
@@ -39,6 +43,7 @@ export class CustomListView extends Component {
       isMenuOpened: false,
       selectItem: 'About'
     }
+    this.renderCoin = this.renderCoin.bind(this)
   }
 
   onPressButton (rowData) {
@@ -74,9 +79,9 @@ export class CustomListView extends Component {
   renderLoadingView () {
     return (
       <View style={styles.container}>
-         <Text>
-            Loading data.....
-         </Text>
+        <Text>
+           Loading data.....
+        </Text>
       </View>
     )
   }
@@ -84,19 +89,19 @@ export class CustomListView extends Component {
   renderCoin (coin) {
     return (
       <TouchableHighlight
-              style={styles.row}
-              underlayColor='#c8c7cc'
-              onPress={()=>{this.onPressButton(coin)}}>
-              <View style={styles.rightContainer}>
-                  <Text style={styles.name}>{coin.name}</Text>
-              </View>
-          </TouchableHighlight>
+        style={styles.row}
+        underlayColor='#c8c7cc'
+        onPress={() => { this.onPressButton(coin) }}>
+        <View style={styles.rightContainer}>
+          <Text style={styles.name}>{coin.name}</Text>
+        </View>
+      </TouchableHighlight>
     )
   }
 
-  updateMenuState(isOpen){
+  updateMenuState (isOpen) {
     this.setState({
-      isMenuOpened:isOpen
+      isMenuOpened: isOpen
     })
   }
 
@@ -110,15 +115,14 @@ export class CustomListView extends Component {
       <SideMenu
         menu={menu}
         isOpen={this.state.isMenuOpened}
-        onChange={(isOpen)=>this.updateMenuState(isOpen)}
+        onChange={(isOpen) => this.updateMenuState(isOpen)}
       >
         <ListView
           dataSource={this.state.dataSource}
-          renderRow={this.renderCoin.bind(this)}
+          renderRow={this.renderCoin}
           renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />}
-          style = {styles.listView}
-         >
-        </ListView>
+          style={styles.listView}
+         />
       </SideMenu>
     )
   }
@@ -136,11 +140,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF'
-  },
-  title: {
-    fontSize: 20,
-    marginBottom: 8,
-    textAlign: 'center'
   },
   rightContainer: {
     flex: 1

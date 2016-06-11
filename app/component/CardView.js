@@ -2,13 +2,17 @@
  * Created by qianyiwang on 3/18/16.
  */
 import React, {
+  PropTypes,
+  Component
+} from 'react'
+import {
   StyleSheet,
   Text,
-  Component,
-  PropTypes
+  Dimensions,
+  View
 } from 'react-native'
 
-import LinearGradient from 'react-native-linear-gradient'
+//import LinearGradient from 'react-native-linear-gradient'
 import {
   YunBi
 } from '../network/YunBi'
@@ -39,6 +43,7 @@ class CardView extends Component {
   }
 
   componentDidMount () {
+    console.log(this.state)
     this.coinName = this.props.rowData.name
     this.startTimer()
   }
@@ -70,8 +75,7 @@ class CardView extends Component {
     }
 
     return (
-      <LinearGradient style={styles.container}
-        colors={['#BDCAFA', '#DDD9FA', '#F5EDFA']}>
+      <View>
         <Text style={styles.coinName}>
           {this.coinName}
         </Text>
@@ -84,7 +88,10 @@ class CardView extends Component {
         <Text>
           {this.state.ticker.low}
         </Text>
-      </LinearGradient>
+        <Text>
+          {Dimensions.get('window').width}
+        </Text>
+      </View>
     )
   }
 }

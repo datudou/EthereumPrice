@@ -5,9 +5,11 @@
 'use strict'
 
 import React, {
+  Component
+} from 'react'
+import {
     NavigatorIOS,
     AppRegistry,
-    Component,
     StyleSheet
 } from 'react-native'
 

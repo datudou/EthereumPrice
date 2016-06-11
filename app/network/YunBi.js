@@ -42,7 +42,7 @@ export class YunBi {
         return json
       })
       .catch((error) => {
-        console.error(error)
+        throw error
       })
   }
 

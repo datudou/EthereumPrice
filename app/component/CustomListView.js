@@ -3,13 +3,16 @@
  */
 'use strict'
 import React, {
+  Component,
+  PropTypes
+} from 'react'
+
+import {
   StyleSheet,
   Text,
   View,
   ListView,
-  TouchableHighlight,
-  Component,
-  PropTypes
+  TouchableHighlight
 } from 'react-native'
 
 import {
@@ -21,12 +24,6 @@ import CardView from './CardView'
 import {
   LoadingView
 } from './LoadingView'
-
-import {
-  Menu
-} from './Meun'
-
-import SideMenu from 'react-native-side-menu'
 
 export class CustomListView extends Component {
   static propTypes = {
@@ -106,24 +103,17 @@ export class CustomListView extends Component {
   }
 
   render () {
-    const menu = <Menu onItemSelected={this.onMenuItemSelected}/>
     if (!this.state.loaded) {
       return (<LoadingView/>)
     }
 
     return (
-      <SideMenu
-        menu={menu}
-        isOpen={this.state.isMenuOpened}
-        onChange={(isOpen) => this.updateMenuState(isOpen)}
-      >
-        <ListView
-          dataSource={this.state.dataSource}
-          renderRow={this.renderCoin}
-          renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />}
-          style={styles.listView}
-         />
-      </SideMenu>
+      <ListView
+        dataSource={this.state.dataSource}
+        renderRow={this.renderCoin}
+        renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />}
+        style={styles.listView}
+       />
     )
   }
 }

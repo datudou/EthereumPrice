@@ -1,8 +1,6 @@
 package com.ethereumprice;
 
 import com.facebook.react.ReactActivity;
-import com.BV.LinearGradient.LinearGradientPackage;
-import com.github.xinthink.rnmk.ReactMaterialKitPackage;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 
@@ -36,9 +34,7 @@ public class MainActivity extends ReactActivity {
     @Override
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
-            new MainReactPackage(),
-            new LinearGradientPackage(),
-            new ReactMaterialKitPackage()
+            new MainReactPackage()
         );
     }
 }

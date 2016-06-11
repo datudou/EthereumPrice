@@ -1,9 +1,12 @@
 'use strict'
 import React, {
+    Component
+} from 'react'
+
+import {
     StyleSheet,
     Text,
-    View,
-    Component
+    View
 } from 'react-native'
 
 export class LoadingView extends Component {
@@ -27,4 +30,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF'
   }
 })
-

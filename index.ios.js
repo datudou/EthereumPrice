@@ -27,7 +27,11 @@ class EthereumPrice extends Component {
         initialRoute={{
           title: 'EthereumPrice',
           component: CustomListView
-        }}/>
+        }}
+        barTintColor='#242536'
+        translucent={false}
+        titleTextColor={'white'}
+        />
     )
   }
 }

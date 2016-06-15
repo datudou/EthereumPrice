@@ -75,7 +75,7 @@ class CardView extends Component {
     }
 
     return (
-      <View>
+      <View style={styles.container}>
         <Text style={styles.coinName}>
           {this.coinName}
         </Text>
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: 'transparent',
+    backgroundColor: '#242536',
     justifyContent: 'center'
   },
   coinName: {

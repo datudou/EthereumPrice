@@ -48,6 +48,9 @@ export class CustomListView extends Component {
       this.props.navigator.push({
         title: rowData.name,
         component: CardView,
+        leftButtonTitle: 'Pop',
+        leftButtonIcon: require('../img/NavBack.png'),
+        onLeftButtonPress: () => this.props.navigator.pop(),
         passProps: {
           rowData
         }
@@ -144,5 +147,9 @@ const styles = StyleSheet.create({
   listView: {
     paddingTop: 60,
     backgroundColor: '#F5FCFF'
+  },
+  customWrapperStyle: {
+    backgroundColor: '#242536'
   }
+
 })

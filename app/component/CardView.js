@@ -12,7 +12,6 @@ import {
   View
 } from 'react-native'
 
-//import LinearGradient from 'react-native-linear-gradient'
 import {
   YunBi
 } from '../network/YunBi'
@@ -76,21 +75,32 @@ class CardView extends Component {
 
     return (
       <View style={styles.container}>
-        <Text style={styles.coinName}>
-          {this.coinName}
-        </Text>
-        <Text>
-          {this.state.ticker.last}
-        </Text>
-        <Text>
-          {this.state.ticker.high}
-        </Text>
-        <Text>
-          {this.state.ticker.low}
-        </Text>
-        <Text>
-          {Dimensions.get('window').width}
-        </Text>
+        <View style={styles.containerLP}>
+          <Text style={styles.promoptText}>
+            Last price
+          </Text>
+          <Text style={styles.lastPrice}>
+            {this.state.ticker.last}
+          </Text>
+        </View>
+        <View style={styles.highAndLow}>
+          <View style={styles.high}>
+            <Text style={styles.promoptText}>
+              High
+            </Text>
+            <Text style={styles.hightPrice}>
+              {this.state.ticker.high}
+            </Text>
+          </View>
+          <View style={styles.low}>
+            <Text style={styles.promoptText}>
+              Low
+            </Text>
+            <Text style={styles.lowPrice}>
+              {this.state.ticker.low}
+            </Text>
+          </View>
+        </View>
       </View>
     )
   }
@@ -101,10 +111,47 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#242536',
-    justifyContent: 'center'
+    justifyContent: 'flex-start'
+  },
+  high:{
+    flexDirection:'column',
+    alignItems: 'center',
+    marginRight: 59
+  },
+  low:{
+    flexDirection:'column',
+    alignItems: 'center'
   },
   coinName: {
-    fontSize: 20
+    fontSize: 20,
+    color: 'white'
+  },
+  containerLP: {
+    marginTop: 64,
+    alignItems: 'center',
+    flexDirection: 'column'
+  },
+  highAndLow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    marginTop: 45
+  },
+  promoptText: {
+    fontSize: 14,
+    color: '#6A7088'
+  },
+  lastPrice: {
+    fontSize: 50,
+    color: '#FB497C'
+  },
+  hightPrice: {
+    fontSize: 32,
+    color: 'white'
+  },
+  lowPrice:{
+    fontSize: 32,
+    color: 'white'
   }
 })
 

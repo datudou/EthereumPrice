@@ -48,7 +48,8 @@ export class CustomListView extends Component {
       this.props.navigator.push({
         title: rowData.name,
         component: CardView,
-        leftButtonTitle: 'Pop',
+        leftButtonTitle: '',
+        tintColor:'white',
         leftButtonIcon: require('../img/NavBack.png'),
         onLeftButtonPress: () => this.props.navigator.pop(),
         passProps: {

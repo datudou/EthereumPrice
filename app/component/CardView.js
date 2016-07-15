@@ -69,6 +69,12 @@ class CardView extends Component {
   }
 
   render () {
+    //TODO:if no network show error promoptText  
+
+//    if(noNetWork) {
+//      return (<NoNetWorkDiaglog/>)
+//    }
+
     if (!this.state.isLoaded) {
       return (<LoadingView/>)
     }

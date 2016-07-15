@@ -38,7 +38,8 @@ export class CustomListView extends Component {
       }),
       loaded: false,
       isMenuOpened: false,
-      selectItem: 'About'
+      selectItem: 'About',
+      ticker: ''
     }
     this.renderCoin = this.renderCoin.bind(this)
   }
@@ -90,14 +91,46 @@ export class CustomListView extends Component {
   renderCoin (coin) {
     return (
       <TouchableHighlight
-        style={styles.row}
+        style={this._jeweStyle(coin.name)}
         underlayColor='#c8c7cc'
         onPress={() => { this.onPressButton(coin) }}>
         <View style={styles.rightContainer}>
           <Text style={styles.name}>{coin.name}</Text>
+          <Text>this..</Text>
         </View>
       </TouchableHighlight>
     )
+  }
+
+  fetchPrice (marketId) {
+    new YunBi.getTickersByMarket(marketId)
+      .then((response) => {
+        this.setState({
+          ticker: response.ticker
+        })
+      })
+  }
+
+  _jeweStyle (coinName) {
+    return {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      height: 162,
+      backgroundColor: this._randomColor(coinName)
+    }
+  }
+
+  _randomColor (coinName) {
+    console.log(coinName)
+    let colors = { 'BTC/CNY': '#43C9D6', 'ETH/CNY': '#46BE8A', 'DGD/CNY': '#4D7BF3',
+                    'DGD/BTC': '#926DDE', 'ETH/BTC': '#43C9D6', 'BTS/CNY': '#46BE8A',
+                    'BITCNY/CNY': '#4D7BF3', 'DCS/CNY': '#926DDE', 'SC/CNY': '#43C9D6',
+                    'DAO/CNY': '#46BE8A', 'DAO/BTC': '#4D7BF3'}
+    if (colors[coinName] === undefined) {
+      return '#43C9D6'
+    } else {
+      return colors[coinName]
+    }
   }
 
   updateMenuState (isOpen) {
@@ -126,8 +159,8 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     justifyContent: 'center',
-    padding: 30,
-    backgroundColor: '#F6F6F6'
+    height: 162,
+    backgroundColor: '#43C9D6'
   },
   container: {
     flex: 1,
@@ -139,11 +172,15 @@ const styles = StyleSheet.create({
     flex: 1
   },
   name: {
-    textAlign: 'left'
+    textAlign: 'left',
+    color:'white',
+    marginTop: 35,
+    marginLeft: 28,
+    fontSize: 17
   },
   separator: {
     height: 1,
-    backgroundColor: '#CCCCCC'
+    backgroundColor: '#242536'
   },
   listView: {
     paddingTop: 60,

@@ -8,18 +8,18 @@
   "dependencies": {
     "crypto-js": "^3.1.6",
     "node-fetch": "^1.4.0",
-    "react": "^15.1.0",
-    "react-native": "0.29.0",
+    "react": "^15.3.1",
+    "react-native": "^0.33.0",
     "react-native-linear-gradient": "^1.5.3",
     "react-native-material-kit": "^0.3.0",
-    "react-native-side-menu": "^0.18.0",
+    "react-native-side-menu": "^0.20.0",
     "react-timer-mixin": "^0.13.3"
   },
   "devDependencies": {
-    "ava": "^0.13.0",
+    "ava": "^0.16.0",
     "babel-preset-es2015-node5": "^1.2.0",
-    "eslint": "^2.5.1",
-    "eslint-plugin-react": "^4.2.3",
-    "eslint-plugin-react-native": "^1.0.0"
+    "eslint": "^3.5.0",
+    "eslint-plugin-react": "^6.2.2",
+    "eslint-plugin-react-native": "^2.0.0"
   }
 }

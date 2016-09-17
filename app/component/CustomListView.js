@@ -68,7 +68,8 @@ export class CustomListView extends Component {
   }
 
   componentDidMount () {
-    new YunBi().getMarkets()
+    let yunbi = new YunBi()
+    yunbi.getMarkets()
       .then((response) => {
         console.info(response)
         this.setState({
@@ -96,14 +97,14 @@ export class CustomListView extends Component {
         onPress={() => { this.onPressButton(coin) }}>
         <View style={styles.rightContainer}>
           <Text style={styles.name}>{coin.name}</Text>
-          <Text>this..</Text>
+          <Text></Text>
         </View>
       </TouchableHighlight>
     )
   }
 
   fetchPrice (marketId) {
-    new YunBi.getTickersByMarket(marketId)
+    new YunBi().getTickersByMarket(marketId)
       .then((response) => {
         this.setState({
           ticker: response.ticker

@@ -1,4 +1,4 @@
-"use strict"
+'use strict'
 import {YunBi} from '../app/network/YunBi.js'
 import {
     ACCESS_KEY,
@@ -18,5 +18,5 @@ yunbi.getTickers()
   .then((res) => {
     console.log(res)
   })
-//yunbi.getTickersByMarket()
+// yunbi.getTickersByMarket()
 

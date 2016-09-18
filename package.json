@@ -19,6 +19,8 @@
     "ava": "^0.16.0",
     "babel-preset-es2015-node5": "^1.2.0",
     "eslint": "^3.5.0",
+    "eslint-config-standard": "^6.0.1",
+    "eslint-config-standard-react": "^4.0.2",
     "eslint-plugin-react": "^6.2.2",
     "eslint-plugin-react-native": "^2.0.0"
   }

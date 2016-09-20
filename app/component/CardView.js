@@ -20,9 +20,12 @@ import {
   LoadingView
 } from './LoadingView.js'
 
+
+
 class CardView extends Component {
   static propTypes = {
-    rowData: PropTypes.object.isRequired
+    rowData: PropTypes.object.isRequired ,
+    // fetchTickers: PropTypes.function.isRequired
   };
 
   constructor (props) {
@@ -45,6 +48,7 @@ class CardView extends Component {
     console.log(this.state)
     this.coinName = this.props.rowData.name
     this.startTimer()
+    console.log(this.props)
   }
 
   componentWillUnmount () {
@@ -69,7 +73,7 @@ class CardView extends Component {
   }
 
   render () {
-    //TODO:if no network show error promoptText  
+    //TODO:if no network show error promoptText
 
 //    if(noNetWork) {
 //      return (<NoNetWorkDiaglog/>)
@@ -160,5 +164,7 @@ const styles = StyleSheet.create({
     color: 'white'
   }
 })
+
+
 
 export default CardView

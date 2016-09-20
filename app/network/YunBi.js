@@ -3,6 +3,7 @@ import CryptoJS from 'crypto-js'
 import {
   HOST
 } from '../constant'
+import Rx from 'rxjs/Rx'
 
 export class YunBi {
 

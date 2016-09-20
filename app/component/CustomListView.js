@@ -32,6 +32,7 @@ export class CustomListView extends Component {
 
   constructor (props) {
     super(props)
+    console.log("#####", props)
     this.state = {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2
@@ -68,6 +69,7 @@ export class CustomListView extends Component {
   }
 
   componentDidMount () {
+    this.props.actions()
     let yunbi = new YunBi()
     yunbi.getMarkets()
       .then((response) => {
@@ -190,5 +192,4 @@ const styles = StyleSheet.create({
   customWrapperStyle: {
     backgroundColor: '#242536'
   }
-
 })

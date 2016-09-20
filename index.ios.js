@@ -4,48 +4,29 @@
  */
 'use strict'
 
-import React, {
-  Component
-} from 'react'
-import {
-    NavigatorIOS,
-    AppRegistry,
-    StyleSheet,
-    StatusBar
-} from 'react-native'
+import React, { Component } from 'react'
+import { createStore, applyMiddleware, combineReducers } from 'redux'
+import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
+import * as reducers from './app/reducers'
+import CoinApp from './app/container/CoinApp'
+import { AppRegistry } from 'react-native'
 
-import {CustomListView} from './app/component/CustomListView'
 
-class EthereumPrice extends Component {
-  componentDidMount () {
-    StatusBar.setBarStyle('light-content', true)
-  }
 
-  componendWillMount () {
-  }
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore)
+const reducer = combineReducers(reducers)
+const store = createStoreWithMiddleware(reducer)
 
-  render () {
+
+export default class App extends Component {
+  render(){
     return (
-      <NavigatorIOS
-        style={styles.container}
-        initialRoute={{
-          title: 'EthereumPrice',
-          component: CustomListView
-        }}
-        barTintColor='#242536'
-        translucent={false}
-        titleTextColor={'white'}
-        />
+      <Provider store={store}>
+        <CoinApp />
+      </Provider>
     )
   }
 }
 
-const styles = StyleSheet.create({
-
-  container: {
-    flex: 1,
-    backgroundColor: '#F5FCFF'
-  }
-})
-
-AppRegistry.registerComponent('EthereumPrice', () => EthereumPrice)
+AppRegistry.registerComponent('EthereumPrice', () => App)

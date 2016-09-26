@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 
 import {CustomListView} from '../component/CustomListView'
-import { fetchTickers } from '../actions/fetchTickers'
+import * as actions from '../actions/fetchTickers'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
@@ -22,14 +22,15 @@ class CoinApp extends Component {
   }
 
   render () {
-    const { actions } = this.props
+    const { dispatch } = this.props
+    const bindActions = bindActionCreators(actions, dispatch)
     return (
       <NavigatorIOS
         style={styles.container}
         initialRoute={{
           title: 'EthereumPrice',
           component: CustomListView,
-          passProps: { actions },
+          passProps: { ...bindActions },
         }}
         barTintColor='#242536'
         translucent={false}
@@ -48,10 +49,7 @@ const styles = StyleSheet.create({
   }
 })
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(fetchTickers, dispatch),
-  }
-}
 
-export default connect(mapDispatchToProps)(CoinApp)
+export default connect(
+  state => ({ state: state })
+)(CoinApp)

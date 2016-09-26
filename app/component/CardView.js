@@ -45,10 +45,8 @@ class CardView extends Component {
   }
 
   componentDidMount () {
-    console.log(this.state)
     this.coinName = this.props.rowData.name
     this.startTimer()
-    console.log(this.props)
   }
 
   componentWillUnmount () {

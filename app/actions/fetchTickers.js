@@ -11,7 +11,6 @@ export function fetchTickers(){
       .flatMap( r => Rx.Observable.fromPromise(r.json()))
 
     responseStream.subscribe(tickers => {
-      console.log(tickers)
       dispatch({
         type:'GET_TICKERS',
         payload: {

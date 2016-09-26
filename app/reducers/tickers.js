@@ -1,4 +1,4 @@
-export default function ticker(state = {} , action ){
+export default function tickers(state = {} , action ){
   switch (action.type) {
     case 'GET_TICKERS':
       return {

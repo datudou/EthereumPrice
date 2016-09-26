@@ -27,12 +27,12 @@ import {
 
 export class CustomListView extends Component {
   static propTypes = {
-    navigator: PropTypes.object.isRequired
+    navigator: PropTypes.object.isRequired ,
+    fetchTickers: PropTypes.func.isRequired ,
   };
 
   constructor (props) {
     super(props)
-    console.log("#####", props)
     this.state = {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2
@@ -69,11 +69,10 @@ export class CustomListView extends Component {
   }
 
   componentDidMount () {
-    this.props.actions()
+    this.props.fetchTickers()
     let yunbi = new YunBi()
     yunbi.getMarkets()
       .then((response) => {
-        console.info(response)
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(response),
           loaded: true
@@ -124,7 +123,6 @@ export class CustomListView extends Component {
   }
 
   _randomColor (coinName) {
-    console.log(coinName)
     let colors = { 'BTC/CNY': '#43C9D6', 'ETH/CNY': '#46BE8A', 'DGD/CNY': '#4D7BF3',
                     'DGD/BTC': '#926DDE', 'ETH/BTC': '#43C9D6', 'BTS/CNY': '#46BE8A',
                     'BITCNY/CNY': '#4D7BF3', 'DCS/CNY': '#926DDE', 'SC/CNY': '#43C9D6',
